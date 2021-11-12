@@ -1,0 +1,15 @@
+# List the start up tasks. Learn more https://www.gitpod.io/docs/config-start-tasks/
+tasks:
+  - name: Terminal 1
+    before: echo 'script 1'
+    init: echo 'init script' # runs during prebuild
+    command: echo 'start script'
+
+  - name: Terminal 2
+    init: yarn
+    command: yarn serve
+
+# List the ports to expose. Learn more https://www.gitpod.io/docs/config-ports/
+ports:
+  - port: 8082
+    onOpen: open-preview
