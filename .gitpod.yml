@@ -14,3 +14,10 @@ ports:
   - port: 8082
     onOpen: open-preview
 
+image:
+  file: .gitpod.Dockerfile
+
+vscode:
+  extensions:
+    - octref.vetur
+
