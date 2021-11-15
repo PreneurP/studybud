@@ -1,11 +1,11 @@
 <template>
   <div class="sign-up">
-   <app-header/>
+    <app-header />
 
     <div class="main__section">
       <SideComponent />
       <div class="form__area">
-        <component :is="steps[currentStep].component" />
+        <component :is="steps[currentStep].component" :method="userDetails" />
         <div class="action__button">
           <button class="next" @click="nextPage" v-show="showNext">
             Next
@@ -36,23 +36,28 @@ export default {
   },
   data() {
     return {
-      steps: [
-        { component: Details },
-        { component: Choice },
-        { component: Learner },
-        { component: Mentor },
-      ],
       currentStep: 0,
       showComplete: false,
       showNext: true,
+      choice: "",
     };
+  },
+  computed: {
+    // eslint-disable-next-line vue/return-in-computed-property
+    steps() {
+      return [
+        { name: "Details", component: Details },
+        { name: "Choice", component: Choice },
+        {
+          name: "Divide",
+          component: this.choice === "learner" ? Learner : Mentor,
+        },
+      ];
+    },
   },
   methods: {
     nextPage() {
-      if (
-        this.currentStep < this.steps.length - 1
-      ) {
-        
+      if (this.currentStep < this.steps.length - 1) {
         this.currentStep += 1;
         this.showNext = true;
         this.showComplete = false;
@@ -62,6 +67,10 @@ export default {
         this.showNext = false;
       }
     },
+    userDetails(choice) {
+      this.choice = choice;
+      console.log(this.choice);
+    },
   },
 };
 </script>
@@ -69,7 +78,8 @@ export default {
 <style scoped>
 .main__section {
   display: flex;
-  margin-top: 78px;
+  /* margin-top: 78px; */
+  padding-top: 40px;
 }
 .form__area {
   width: 50%;
@@ -93,19 +103,19 @@ export default {
   border-radius: 10px;
 }
 @media (min-width: 320px) and (max-width: 812px) {
-.main__section {
-  display: block;
-  margin-top: 78px;
-}
-.form__area {
-  width: 100vw;
-}
-.action__button button {
-  width: 100%;
-  height: 56px;
-}
-.action__button {
-  padding: 0px 20px 30px;
-}
+  .main__section {
+    display: block;
+    margin-top: 78px;
+  }
+  .form__area {
+    width: 100vw;
+  }
+  .action__button button {
+    width: 100%;
+    height: 56px;
+  }
+  .action__button {
+    padding: 0px 20px 30px;
+  }
 }
 </style>
