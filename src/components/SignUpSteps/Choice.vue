@@ -24,25 +24,35 @@
 
 <script>
 export default {
+  props: {
+    method: { type: Function },
+  },
   data() {
     return {
       learnerActive: false,
       mentorActive: false,
-      userChoice: ""
+      userChoice: "",
     };
   },
   methods: {
     toggleLearnerActive() {
       this.mentorActive = false;
       this.learnerActive = true;
-      this.userChoice = "learner"
+      this.userChoice = "learner";
+      // console.log(this.userChoice)
+      this.method(this.userChoice);
     },
     toggleMentorActive() {
       this.learnerActive = false;
       this.mentorActive = true;
-      this.userChoice = 'mentor'
+      this.userChoice = "mentor";
+      // console.log(this.userChoice)
+      this.method(this.userChoice);
     },
-  },
+    mounted() {
+      this.method(this.userChoice)
+    },
+  }
 };
 </script>
 
@@ -143,31 +153,30 @@ export default {
   color: #07c8f9;
 }
 
-@media (min-width: 320px) and (max-width: 812px)  {
-.choice__path {
-  padding: 20px;
-  width: 100vw;
-}
-.paths {
-  display: block;
-}
-.learner {
-  width: 100%;
-  margin-top: 30px;
-}
-.mentor {
-  width: 100%;
-  margin-left: 0px;
-  margin-top: 40px;
-  margin-bottom: 20px;
-  padding: 20px 0;
-  cursor: pointer;
-}
-.choice__path h3 {
-  
-  position: absolute;
-  top: 34%;
-  color: #fff;
-}
+@media (min-width: 320px) and (max-width: 812px) {
+  .choice__path {
+    padding: 20px;
+    width: 100vw;
+  }
+  .paths {
+    display: block;
+  }
+  .learner {
+    width: 100%;
+    margin-top: 30px;
+  }
+  .mentor {
+    width: 100%;
+    margin-left: 0px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    padding: 20px 0;
+    cursor: pointer;
+  }
+  .choice__path h3 {
+    position: absolute;
+    top: 34%;
+    color: #fff;
+  }
 }
 </style>
